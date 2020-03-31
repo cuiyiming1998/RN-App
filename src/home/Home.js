@@ -5,6 +5,7 @@ import { MessageBarManager } from 'react-native-message-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Actions, Tabs} from 'react-native-router-flux';
 import Swiper from 'react-native-swiper'
+import Message from '../message/Message';
 
 
 const {width} = Dimensions.get('window');
@@ -49,18 +50,19 @@ export default class Homework extends Component {
             data={this.state.data}
             renderItem={
                 ({item})=>  <View>
-                                <View style={styles.table}>
+                                <View style={styles.table} >
                                     <Text style={{height:85,marginLeft:20,fontSize:15}}>
                                     <Image 
+                                       
                                         style={{height:50,width:50}}
                                         source = {require('../../assets/avator.png')}
                                     />
                                             
-                                            <Text>居家维修保养</Text>
+                                        <Text  onPress={()=>Actions.message()}>居家维修保养</Text>
                                     </Text>
                                 </View>
-                                <View style={styles.table}>
-                                    <Text style={{height:85,marginLeft:20,fontSize:15}}>
+                                <View style={styles.table} >
+                                    <Text onPress={()=>Actions.message()} style={{height:85,marginLeft:20,fontSize:15}}>
                                     <Image 
                                         style={{height:50,width:50}}
                                         source = {require('../../assets/avator.png')}
@@ -68,8 +70,8 @@ export default class Homework extends Component {
                                         住宿优惠
                                     </Text>
                                 </View>
-                                <View style={styles.table}>
-                                    <Text style={{height:85,marginLeft:20,fontSize:15}}>
+                                <View style={styles.table} >
+                                    <Text onPress={()=>Actions.message()} style={{height:85,marginLeft:20,fontSize:15}}>
                                     <Image 
                                         style={{height:50,width:50}}
                                         source = {require('../../assets/avator.png')}
@@ -77,8 +79,8 @@ export default class Homework extends Component {
                                         出行接送
                                     </Text>
                                 </View>
-                                <View style={styles.table}>
-                                    <Text style={{height:85,marginLeft:20,fontSize:15}}>
+                                <View style={styles.table} >
+                                    <Text onPress={()=>Actions.message()} style={{height:85,marginLeft:20,fontSize:15}}>
                                     <Image 
                                         style={{height:50,width:50}}
                                         source = {require('../../assets/avator.png')}

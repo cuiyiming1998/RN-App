@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { View, Button ,ScrollView, ToastAndroid, Text, FlatList, Dimensions, StyleSheet } from 'react-native'
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Actions } from 'react-native-router-flux';
 const {width} = Dimensions.get('window')
 
 class list extends Component {
     constructor(){
         super();
         this.state = ({
+            txtColor: [],
             data: [],
-            num: 1
+            num: 1,
+            rowData:[]
         })
     }
 
@@ -37,6 +40,7 @@ class list extends Component {
         fetch('https://cnodejs.org/api/v1/topics?limit=14&page='+pageNum).then((res)=>res.json())
         .then((res)=>{
             res.data.forEach((item)=>{
+                this.setState.length({rowData: res.data});
                 if(item.title.length>15){
                     item.title = item.title.substr(0,15) + '...'
                 }
@@ -62,15 +66,21 @@ class list extends Component {
             <View>
                 <View style={styles.main}>
                     <View style={styles.nav}>
+                        <View style={{width: width*0.2,marginLeft:20}}>
+                        </View>
+                        <Icon name="arrow-left" color="white" onPress={()=>{Actions.pop()}}/>
+                        <View style={{width:width*0.8,marginLeft: 140}}>
                         <Text style={{color: 'white',fontSize: 18}}>我的发布</Text>
+                        </View>
                     </View>
                     <FlatList 
                         data = {this.state.data}
                         renderItem = {
-                            ({item})=>
+                            ({item,index})=>
                             <View style={styles.content}>
                                 <Text style={{width:width*0.6}}>{item.title}</Text>
                                 <Text>{item.create_at.substr(0,10)}</Text>
+                                <View>{Math.floor((Math.random()*10))%2 == 0?<Text>已回复</Text>:<Text style={{color:'red'}}>待回复</Text>}</View>
                             </View>
                         }
                     />
@@ -93,14 +103,16 @@ export default list;
 
 const styles = StyleSheet.create({
     main:{
-        fontSize: 15
+        fontSize: 15,
+        backgroundColor: 'white'
     },
     nav:{
         height: 50,
         width: width,
         backgroundColor: 'red',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection:'row'
     },
     content:{
         flexDirection: 'row',

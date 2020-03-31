@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Animated,Easing, TextInput, TouchableOpacity, View, ActivityIndicator, Text, FlatList, Dimensions ,ScrollView, StyleSheet, Image} from 'react-native';
+import { Animated,Easing, TextInput, TouchableOpacity, View, ActivityIndicator, Text, FlatList, Dimensions ,ScrollView, StyleSheet, Image, AsyncStorage} from 'react-native';
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Avatar} from 'react-native-elements'
+import { Actions } from 'react-native-router-flux';
+import Login from '../common/Login'
 
 
 const {width} = Dimensions.get('window');
@@ -59,6 +61,9 @@ export default class Doc extends Component {
             data2
         }
     }
+    logout(){
+        Actions.reset('login',{Login})
+    }
 
 
     render() {
@@ -66,14 +71,14 @@ export default class Doc extends Component {
             <ScrollView>
                 <View style={styles.top}>
                     <Avatar
-                        size="xlarge"
+                        size="large"
                         rounded
                         source={require('../../assets/ava.jpg')}
                     />
                     <Text style={styles.name}>BINNU DHILLON</Text>
                 </View>
                 <View style={styles.my}>
-                        <Icon name="android" size={30} color="gray" style={{marginLeft:20}} />
+                        <Icon name="user" size={20} color="gray" style={{marginLeft:20}} />
                         <Text style={styles.myText}>我的个人中心</Text>
                 </View>
                 <FlatList 
@@ -83,7 +88,7 @@ export default class Doc extends Component {
                     renderItem = {
                         ({item})=>
                         <View style={styles.icons}>
-                            <Icon name={item.icon} size={30} color="gray" />
+                            <Icon name={item.icon} size={20} color="gray" />
                             <Text style={{marginTop: 10,color:'gray'}}>
                                 {item.tit}
                             </Text>
@@ -91,7 +96,7 @@ export default class Doc extends Component {
                     }
                 />
                 <View style={styles.my}>
-                        <Icon name="tags" size={30} color="gray" style={{marginLeft:20}} />
+                        <Icon name="tags" size={20} color="gray" style={{marginLeft:20}} />
                         <Text style={styles.myText}>E族活动</Text>
                 </View>
                 <FlatList 
@@ -101,13 +106,16 @@ export default class Doc extends Component {
                     renderItem = {
                         ({item})=>
                         <View style={styles.icons}>
-                            <Icon name={item.icon} size={30} color="gray" />
+                            <Icon name={item.icon} size={20} color="gray" />
                             <Text style={{marginTop: 10,color:'gray'}}>
                                 {item.tit}
                             </Text>
                         </View>
                     }
                 />
+                <View style={{alignItems:'center',justifyContent:'center',marginTop:20}}>
+                    <Button style={styles.btn} onPress={()=>this.logout()}> 退出登录 </Button>
+                </View>
             </ScrollView>
         )
     }
@@ -116,7 +124,7 @@ export default class Doc extends Component {
 const styles = StyleSheet.create({
 
     top: {
-        height: height*0.4,
+        height: height*0.3,
         width: width,
         backgroundColor: '#ff3030',
         alignItems:'center',
@@ -129,7 +137,7 @@ const styles = StyleSheet.create({
     },
     my: {
         width: width,
-        height:45,
+        height:40,
         borderWidth: 0.3,
         borderColor: 'white',
         borderBottomColor: 'gray',
@@ -150,8 +158,17 @@ const styles = StyleSheet.create({
     },
     icons: {
         width: width/3,
-        height: width/3,
+        height: width/5,
         justifyContent:'center',
         alignItems:'center',
-    }
+    },
+    btn:{
+        width: width*0.7,
+        height: 40,
+        color: '#fff',
+        textAlignVertical: 'center',
+        borderRadius: 10,
+        backgroundColor: 'red',
+        marginBottom: 20
+    },
 })

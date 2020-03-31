@@ -30,7 +30,6 @@ const App = () => {
 		AsyncStorage.getItem('user')
 		.then(res=>{
 			let user = JSON.parse(res)
-			console.log(user)
 			if(!user){
 				SplashScreen.hide();
 			}
@@ -44,13 +43,12 @@ const App = () => {
 		init();
 	},[])
 	let afterInstall = ()=>{
-		console.log('after install')
 		setInstall(false)
 	}
 	if(isInstall){
 		return <View style={{flex:1}}>
-			<SwiperPage afterInstall={afterInstall}/>
-		</View>
+					<SwiperPage afterInstall={afterInstall}/>
+				</View>
 	}
 
 	return (
@@ -68,7 +66,6 @@ const App = () => {
 						return true;
 					}
 				}
-				
 			}}
 		>
 			<Overlay>
@@ -115,24 +112,9 @@ const App = () => {
 											name="tags"
 										/>
 									}
-									
 								>
 									<Scene key="goods" component={Goods}/>
 								</Scene>
-								{/* 信息 */}
-								<Scene 
-									key='msgPage'
-									hideDrawerButton
-									hideNavBar
-									icon={({focused})=>
-										<Icon 
-											size={20}
-											color={focused?'red':'#409eff'} 
-											name='file'/>
-										}
-									title="信息"
-									component={Message}
-								/>
 								<Scene 
 									key='userPage'
 									hideDrawerButton
@@ -152,6 +134,8 @@ const App = () => {
 					</Drawer>
 				</Lightbox>
 				<Scene initial={!isLogin} key="login" component={Login} />
+				<Scene key="message" component={Message}/>
+				<Scene key="homepage" component={Home} />
 			</Modal>
 			</Overlay>
 		</Router>
