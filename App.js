@@ -11,6 +11,7 @@ import Login from './src/common/Login'
 import Message from './src/message/Message';
 import SwiperPage from './src/common/SwiperPage';
 import Userinfor from './src/Userinfo/Userinfo'
+import Signup from './src/common/Signup';
 
 
 console.disableYellowBox = true;
@@ -135,7 +136,7 @@ const App = () => {
 				</Lightbox>
 				<Scene initial={!isLogin} key="login" component={Login} />
 				<Scene key="message" component={Message}/>
-				<Scene key="homepage" component={Home} />
+				<Scene key="signup" component={Signup}/>
 			</Modal>
 			</Overlay>
 		</Router>

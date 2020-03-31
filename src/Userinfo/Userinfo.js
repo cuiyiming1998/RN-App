@@ -62,6 +62,7 @@ export default class Doc extends Component {
         }
     }
     logout(){
+        AsyncStorage.removeItem('user');
         Actions.reset('login',{Login})
     }
 

@@ -3,8 +3,7 @@ import {Router,View, Text, Image, TextInput, AsyncStorage, TouchableOpacity, Bac
 import { Icon } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
 import {myFetch} from '../utils'
-import Home from '../home/Home'
-export default class Login extends Component {
+export default class Signup extends Component {
     constructor(){
         super();
         this.state = {
@@ -38,35 +37,13 @@ export default class Login extends Component {
             if(res.data.token == 1){
               AsyncStorage.setItem('user',JSON.stringify(res.data))
               .then(()=>{
-                console.log(this.state.username)
                 this.setState({isloading:false})
-                Actions.reset('lightbox');
+                Alert.alert('注册成功,请登录');
+                Actions.pop();
               })
-            }else{
-              Alert.alert('用户名或密码不正确');
-              this.state.isloading = !this.state.isloading;
             }
           })
         }
-    } 
-    componentDidMount(){
-      console.log(Actions.currentScene);
-      BackHandler.addEventListener('hardwareBackPress', this.backAndroidHandler);
-    }
-    backAndroidHandler=()=>{
-      console.log(Actions.currentScene)
-      if(Actions.currentScene != 'login'){
-        Actions.pop();
-        return true;
-      }else{
-        if(new Date().getTime()-this.state.now<2000){
-          BackHandler.exitApp();
-        }else{
-          ToastAndroid.show('确定要退出吗',100);
-          this.setState({now:new Date().getTime()})
-          return true;
-        }
-      }
     }
   render() {
     return (
@@ -117,21 +94,22 @@ export default class Login extends Component {
                 onPress={this.login}>
                 {
             this.state.isloading
-            ?<View><Text style={{color:'gray'}}>登录中</Text></View>
-            :<Text>登录</Text>
+            ?<View><Text style={{color:'gray'}}>验证中</Text></View>
+            :<Text>注册</Text>
           }
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
                 style={{
-                  width: '80%',
-                  height: 40,
-                  backgroundColor: '#ccc',
-                  marginTop: 30,
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onPress={()=>{Actions.signup()}}>
-                <Text>注册</Text>
+                    width: '80%',
+                    height: 40,
+                    backgroundColor: '#ccc',
+                    marginTop: 30,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onPress={()=>{Actions.pop()}}
+            >
+                <Text>返回</Text>
             </TouchableOpacity>
         </View>
       </View>
